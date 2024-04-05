@@ -18,6 +18,24 @@ def get_all_serv_proj():
     data = queries.get_all_serv_proj()
     return jsonify(data)
 
+@app.route('/api_v1/serv-proj/<serv_proj_id>/poi/all', methods=['GET'])
+def get_pois_by_serv_proj_id(serv_proj_id):
+    serv_proj_id = serv_proj_id
+    data = queries.get_pois_by_serv_proj_id(serv_proj_id)
+    return jsonify(data)
+
+@app.route('/api_v1/serv-proj/poi/<poi_id>/sub-poi/all', methods=['GET'])
+def get_sub_pois_by_poi_id(poi_id):
+    poi_id = poi_id
+    data = queries.get_sub_pois_by_poi_id(poi_id)
+    return jsonify(data)
+
+@app.route('/api_v1/serv-proj/poi/sub-poi/<sub_poi_id>/events/all', methods=['GET'])
+def get_sub_pois_events_by_sub_poi_id(sub_poi_id):
+    sub_poi_id = sub_poi_id
+    data = queries.get_sub_pois_events_by_sub_poi_id(sub_poi_id)
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(
         host = '0.0.0.0',
