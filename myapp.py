@@ -36,6 +36,23 @@ def get_sub_pois_events_by_sub_poi_id(sub_poi_id):
     data = queries.get_sub_pois_events_by_sub_poi_id(sub_poi_id)
     return jsonify(data)
 
+@app.route('/api_v1/serv-proj/poi/sub-poi/<sub_poi_id>/data/all', methods=['GET'])
+def get_sub_pois_data_by_sub_poi_id(sub_poi_id):
+    sub_poi_id = sub_poi_id
+    data = queries.get_sub_pois_data_by_sub_poi_id(sub_poi_id)
+    return jsonify(data)
+
+@app.route('/api_v1/serv-proj/poi/sub-poi/events/<event_id>/images/all', methods=['GET'])
+def get_images_by_sub_poi_event_id(event_id):
+    event_id = event_id
+    data = queries.get_images_by_sub_poi_event_id(event_id)
+    return jsonify(data)
+
+@app.route('/api_v1/serv-proj/poi/sub-poi/events/all/images/all', methods=['GET'])
+def get_all_images():
+    data = queries.get_all_images()
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(
         host = '0.0.0.0',

@@ -58,3 +58,44 @@ def get_sub_pois_events_by_sub_poi_id(cursor, sub_poi_id):
     cursor.execute(query)
     result = cursor.fetchall()
     return result
+
+@db_access.connection_handler
+def get_sub_pois_data_by_sub_poi_id(cursor, sub_poi_id):
+    query = f"""
+        SELECT
+        sub_points_of_interest_data.data_content AS sub_pois_data_content,
+        data_fields.description AS data_field_description
+        FROM sub_points_of_interest
+        RIGHT JOIN sub_points_of_interest_data
+            ON sub_points_of_interest_data.sub_point_of_interest_id = sub_points_of_interest.id
+        RIGHT JOIN data_fields
+            ON data_fields.id = sub_points_of_interest_data.data_field_id
+        WHERE sub_points_of_interest_data.sub_point_of_interest_id = {sub_poi_id};
+        """
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
+@db_access.connection_handler
+def get_images_by_sub_poi_event_id(cursor, sub_poi_event_id):
+    query = f"""
+        SELECT
+        id AS event_id,
+        sub_point_of_interest_event_id AS sub_poi_event_id,
+        image_address
+        FROM sub_points_of_interest_events_images
+        WHERE sub_point_of_interest_event_id = {sub_poi_event_id};
+        """
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
+@db_access.connection_handler
+def get_all_images(cursor):
+    query = f"""
+        SELECT *
+        FROM sub_points_of_interest_events_images;
+        """
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
